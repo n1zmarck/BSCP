@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic Atelier | Direct Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#80deff",
+              "on-primary-container": "#00087d",
+              "surface-variant": "#23262c",
+              "inverse-surface": "#f9f9ff",
+              "tertiary-container": "#fe54ad",
+              "outline": "#74757b",
+              "on-error": "#490013",
+              "on-tertiary": "#4f002f",
+              "secondary-container": "#00677f",
+              "on-secondary-fixed-variant": "#00586d",
+              "on-secondary": "#004050",
+              "surface": "#0c0e13",
+              "on-secondary-fixed": "#003a48",
+              "on-background": "#f0f0f7",
+              "tertiary-fixed-dim": "#ff72b6",
+              "on-error-container": "#ffb2b9",
+              "primary-container": "#8e98ff",
+              "on-tertiary-fixed": "#37001f",
+              "on-secondary-container": "#eef9ff",
+              "error-dim": "#d73357",
+              "on-tertiary-fixed-variant": "#730047",
+              "error": "#ff6e84",
+              "secondary": "#00cffc",
+              "surface-container-lowest": "#000000",
+              "primary-fixed": "#8e98ff",
+              "on-primary-fixed-variant": "#000b98",
+              "on-primary": "#000c9f",
+              "on-surface": "#f0f0f7",
+              "surface-tint": "#9fa7ff",
+              "on-tertiary-container": "#35001e",
+              "secondary-fixed-dim": "#37d4ff",
+              "surface-container-low": "#111318",
+              "on-surface-variant": "#aaabb1",
+              "primary-dim": "#5764f1",
+              "outline-variant": "#46484d",
+              "inverse-primary": "#404dda",
+              "primary-fixed-dim": "#7d88ff",
+              "tertiary-fixed": "#ff8bc0",
+              "tertiary-dim": "#ff66b3",
+              "error-container": "#a70138",
+              "surface-container-highest": "#23262c",
+              "background": "#0c0e13",
+              "surface-container-high": "#1d2026",
+              "surface-container": "#171a1f",
+              "tertiary": "#ff72b6",
+              "surface-dim": "#0c0e13",
+              "secondary-dim": "#00c0ea",
+              "surface-bright": "#292c33",
+              "inverse-on-surface": "#53555a",
+              "on-primary-fixed": "#000000",
+              "primary": "#9fa7ff"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(35, 38, 44, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #46484d;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-hidden h-screen flex">
+<!-- Shared SideNavBar -->
+<nav class="fixed left-0 top-0 h-full z-50 w-20 flex flex-col items-center py-4 bg-[#111318] shadow-[32px_0_32px_rgba(159,167,255,0.08)]">
+<div class="mb-8">
+<span class="text-xl font-bold text-[#9fa7ff] font-headline tracking-tight">KA</span>
+</div>
+<div class="flex flex-col gap-4 flex-1">
+<button class="flex items-center justify-center w-12 h-12 text-slate-400 hover:text-slate-200 transition-colors hover:bg-[#1d2026] hover:rounded-xl transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</button>
+<button class="flex items-center justify-center w-12 h-12 text-slate-400 hover:text-slate-200 transition-colors hover:bg-[#1d2026] hover:rounded-xl transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</button>
+<!-- Active Tab: DMs -->
+<button class="relative flex items-center justify-center w-12 h-12 bg-[#1d2026] text-[#9fa7ff] rounded-2xl after:content-[''] after:absolute after:-left-4 after:w-1 after:h-8 after:bg-[#9fa7ff] after:rounded-r-full active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="chat_bubble" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</button>
+<button class="flex items-center justify-center w-12 h-12 text-slate-400 hover:text-slate-200 transition-colors hover:bg-[#1d2026] hover:rounded-xl transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="flex items-center justify-center w-12 h-12 text-slate-400 hover:text-slate-200 transition-colors hover:bg-[#1d2026] hover:rounded-xl transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="mt-auto flex flex-col gap-4 items-center">
+<button class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-primary active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="User profile avatar circle icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqkQIuke8eFau0snihFctnOqFv9RuEzQ4S1P6vhgqilNKzV-CrRgDXqv7zDyRKAYg_LTLwQRneWGMz2RTdyIMrlg2qKpUoAp5GeFlICPdzbWJsWcUrQnmc-hn7IhaPF4yvtzNdM6DDlmPdq-xH197kZCPYOEETlrGBb7GZPUvP6xHxUHqNGhaZQFFaUTYrh2ak0F5h2IUJY54iJ2uOX034T5vbq-c3KEhFIgInVkYXEGDi1qRJHteQB0pSui3EvpScy0DMNx4L29b9"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="ml-20 flex-1 flex flex-col min-w-0">
+<!-- Shared TopAppBar -->
+<header class="flex items-center justify-between px-6 sticky top-0 z-40 w-full h-12 bg-[#0c0e13]/80 backdrop-blur-xl bg-[#111318] mb-2">
+<div class="flex items-center gap-8">
+<h1 class="font-plus-jakarta font-bold text-lg tracking-tighter text-[#f0f0f7]">Kinetic Atelier</h1>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-inter text-sm font-medium text-slate-400 hover:text-slate-200 transition-colors" href="#">Threads</a>
+<a class="font-inter text-sm font-medium text-slate-400 hover:text-slate-200 transition-colors" href="#">Mentions</a>
+<a class="font-inter text-sm font-medium text-slate-400 hover:text-slate-200 transition-colors" href="#">Drafts</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative bg-surface-container-lowest rounded-lg px-3 py-1.5 flex items-center gap-2 w-64">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none p-0 text-xs focus:ring-0 text-on-surface-variant w-full" placeholder="Search direct messages..." type="text"/>
+</div>
+<button class="text-slate-400 hover:text-slate-200 transition-all scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="text-slate-400 hover:text-slate-200 transition-all scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+</button>
+</div>
+</header>
+<!-- Dynamic Content Area -->
+<main class="flex-1 flex overflow-hidden p-4 gap-4">
+<!-- Left Rail: Conversations List (Slack-style with Premium feel) -->
+<aside class="w-72 bg-surface-container-low rounded-xl flex flex-col overflow-hidden">
+<div class="p-4 flex items-center justify-between">
+<span class="font-headline text-xs font-bold uppercase tracking-widest text-on-surface-variant">Direct Messages</span>
+<button class="text-primary hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar px-2 space-y-1">
+<!-- Active Conversation -->
+<div class="group flex items-center gap-3 p-2 bg-surface-container-highest rounded-lg border-l-4 border-primary">
+<div class="relative">
+<img alt="User 1" class="w-10 h-10 rounded-xl object-cover" data-alt="Portrait of a smiling young professional man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEapkF8kJ2AEfBTOAKJTSC2Gjh29-CLqv8TMRkBJ0eo26wYmwSNWHddtoGdrS-gkSjdU1MGV3jLTIABxiqDM3DSa0cV2ZVOEP5uufCEqcvsijkIjmi8gh0ncZWGw2h_17JuK1NTxetdIGpalUxuYPbzVkBuz3mX3EtdF5wtuLcdlgtc9xUBMZFX7-vDnoo2xczoYVeA9G0Z6_l3x2v68VHcG7AP-TYGt7BAb_y3G-r8m40drV27s-zbfutEC9tnmR7VIVXSKSRIKal"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-secondary rounded-full border-2 border-surface-container-low"></span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-medium text-sm truncate text-on-surface">Alex Rivera</p>
+<p class="text-xs text-primary truncate">Typing...</p>
+</div>
+</div>
+<!-- Other Conversations -->
+<div class="group flex items-center gap-3 p-2 hover:bg-surface-container-high rounded-lg transition-all cursor-pointer">
+<div class="relative">
+<img alt="User 2" class="w-10 h-10 rounded-xl object-cover" data-alt="Portrait of a confident woman with short hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOldcGtguEc4DLu6fg-s6oOl2SjOEsYGUJFYWOZoiraZkJsA6Pq-eKjwcMch2c7zK3DjYcsaEowfoa_-m1-FdtDkgWEYQucqM1NaoqVTET3cSx93PYTzBXL0F8m1sZ5nIQDc1SqaGd46kN-TkGBotmucIuVllaGt85WF8MnA11jJJd5UEgtHTSx0Ta-mLME04ZndXIIdcDV6BdI7TZU2m4xvuKpYpLU_sSeeNAp5hWMP6dIugl_cEJmzeX2TjIROyFYfnT9myfTSoC"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-error rounded-full border-2 border-surface-container-low"></span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-medium text-sm truncate text-on-surface-variant group-hover:text-on-surface">Sarah Chen</p>
+<p class="text-xs text-on-surface-variant truncate">Let's review the new prototypes later today.</p>
+</div>
+</div>
+<div class="group flex items-center gap-3 p-2 hover:bg-surface-container-high rounded-lg transition-all cursor-pointer">
+<div class="relative">
+<div class="w-10 h-10 rounded-xl bg-tertiary-container/20 flex items-center justify-center text-tertiary font-bold">MK</div>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-secondary rounded-full border-2 border-surface-container-low"></span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-medium text-sm truncate text-on-surface-variant group-hover:text-on-surface">Marcus Knight</p>
+<p class="text-xs text-on-surface-variant truncate">The motion curves are feeling very snappy!</p>
+</div>
+</div>
+<div class="group flex items-center gap-3 p-2 hover:bg-surface-container-high rounded-lg transition-all cursor-pointer">
+<div class="relative">
+<img alt="User 3" class="w-10 h-10 rounded-xl object-cover opacity-60" data-alt="Portrait of a man wearing glasses in a studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBubQjvQhngkmhiV2hQArnm4og6QdJqWnBk9hCb1e4BVlRMDMtAQd9IFy-vW8HyKOCBuCTCg_iR1GJuAZdR54nFsnSfccZduY62ZDtzWYpJxV_rMQz4EzngIdC_xq5gINHoQBGi9w3CZ97pITqdt1y3NUMts_aQuk3mtQbAy5vAMkOpND8o9SGJoJHqcq6NIvHxYPZXJxaaJ96f9M2A7pW0Z-wKRekIZ5zPTkiweDHyWKyLUfjNLlOT9LMcfaP5BHQHASFkaVAv6Gz8"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-outline rounded-full border-2 border-surface-container-low"></span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-medium text-sm truncate text-on-surface-variant group-hover:text-on-surface opacity-60">James Wilson</p>
+<p class="text-xs text-on-surface-variant truncate opacity-60">Offline since yesterday</p>
+</div>
+</div>
+</div>
+<!-- Personal Profile Area -->
+<div class="p-4 bg-surface-container flex items-center gap-3 border-t border-outline-variant/10">
+<div class="relative">
+<img alt="Your Profile" class="w-8 h-8 rounded-lg bg-primary-container" data-alt="User profile avatar circle icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmiqk1YC5a1BhYS_MkX9CPySUj24QcUkmjApgDS6G1L0E-WWhY359DOUqLKwcw4URC-v9Qe4t55upqKWPJ9VyAR9Gw5kGzxymrlzG_4UfMzS_qELyhFCdErVG4hfiiLJMh86Yksulh0thjTPG9SXJtYQiG5CGv5uQ1mS0YK3G4QVhrUHzyzsztilyNnYqhZnrdrFSq4v3mCNNF0KMlmA-qXwsyhEva1XqE0hI4g09vFucBvMSBwbsMofmaiU_YGIGQmJJjAGq4EH5M"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-surface-container"></span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold truncate">Kinetic Atelier</p>
+<p class="text-[10px] text-on-surface-variant truncate">Online</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="mic">mic</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="headphones">headphones</span>
+</div>
+</aside>
+<!-- Center: Chat Experience (Modern Editorial Layout) -->
+<section class="flex-1 flex flex-col bg-surface-container rounded-xl overflow-hidden relative">
+<!-- Chat Header -->
+<header class="h-16 flex items-center justify-between px-6 bg-surface-container-low/50 border-b border-outline-variant/5">
+<div class="flex items-center gap-3">
+<span class="text-on-surface-variant font-bold text-lg">@</span>
+<h2 class="font-headline font-bold text-lg">Alex Rivera</h2>
+<span class="text-[10px] bg-secondary-container/30 text-secondary-fixed px-2 py-0.5 rounded-full uppercase font-bold tracking-tighter">Pro member</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined" data-icon="call">call</span></button>
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined" data-icon="videocam">videocam</span></button>
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined" data-icon="person_add">person_add</span></button>
+</div>
+</header>
+<!-- Messages -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-8">
+<!-- Date Divider -->
+<div class="flex items-center gap-4 py-4">
+<div class="flex-1 h-px bg-outline-variant/10"></div>
+<span class="text-[10px] font-bold text-outline uppercase tracking-[0.2em]">Wednesday, Oct 25</span>
+<div class="flex-1 h-px bg-outline-variant/10"></div>
+</div>
+<!-- Message Block 1 -->
+<div class="flex gap-4 group">
+<img alt="Alex" class="w-10 h-10 rounded-xl mt-1 object-cover" data-alt="Professional portrait of Alex" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx3luu7y_6IhPHMPDYlE27sLSPJpA5PKSn6WzNy7qDywz6-mGlG0wNcD3x9rMUeND6Fy4Cl-7-HD7cBZ3rQ81Cucw_EKH5kEd5TbBoYPXnwiuG3GRwmKpeqR_O6f4r1erBT5kVrrYDH0PCg7M7DL9fMbZHE8bG8HEpwWT8NB-GxND01ScCbcm5dUHsNFyhLvOXH8ewhOALmeEj5LDSVRtggN_IDNzHGLrZU1MrmhV8wEIniU8p6hcWPu6nWIkF6Jxhw1Z_C-2b23R4"/>
+<div class="flex-1 space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-bold text-sm text-secondary">Alex Rivera</span>
+<span class="text-[10px] text-on-surface-variant">2:14 PM</span>
+</div>
+<p class="text-sm leading-relaxed max-w-2xl">Hey team! I just uploaded the initial wireframes for the Kinetic Workspace module. I'm focusing on the "no-line" philosophy we discussed earlier. Let me know what you think about the spacing.</p>
+<div class="pt-2 flex gap-2">
+<div class="bg-surface-container-highest p-3 rounded-xl border border-outline-variant/10 flex items-center gap-3 hover:bg-surface-bright cursor-pointer transition-all">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+<div class="text-xs">
+<p class="font-bold">Workspace_V1.fig</p>
+<p class="text-[10px] text-on-surface-variant">12.4 MB • Figma Design</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Message Block 2 (Mentioned State) -->
+<div class="flex gap-4 relative py-2 px-1 group">
+<div class="absolute left-[-1.5rem] top-0 bottom-0 w-1 bg-secondary rounded-full"></div>
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary font-bold mt-1">KA</div>
+<div class="flex-1 space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-bold text-sm">Kinetic Atelier</span>
+<span class="text-[10px] text-on-surface-variant">2:18 PM</span>
+</div>
+<p class="text-sm leading-relaxed bg-primary/5 p-3 rounded-lg border border-primary/10">
+<span class="text-primary font-bold">@Alex Rivera</span> this looks incredible. The way the depth is handled via tonal shifts really makes it feel like a physical desk. Can we try making the sidebar even wider (320px) for high-res displays?
+                            </p>
+</div>
+</div>
+<!-- Message Block 3 -->
+<div class="flex gap-4 group">
+<img alt="Alex" class="w-10 h-10 rounded-xl mt-1 object-cover" data-alt="Professional portrait of Alex" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc5x71qgijQ0AYCw3iQWwEVAQvPUG7doiznF3lbOuzq5qhTAi1kFlAFXVKXOVqe0JOIhNGAJMxkzvcrjqlSJl6EHubWxulkmog75nHEW43L-RK0mo8-3jgyns7pmybkFo0Xy59-E6RRaca0xJKlTZzZc70DJyE_s14nZBu3o-UQ-De1PUlFRmNu42ihccNO_HIkS0A9VjcEI7c1hVk_hdZAdtG6h68coAeiBtdEWK9uju7paxC7av2ObE929_JWcnITOqx8_hD8f4C"/>
+<div class="flex-1 space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-bold text-sm text-secondary">Alex Rivera</span>
+<span class="text-[10px] text-on-surface-variant">2:20 PM</span>
+</div>
+<p class="text-sm leading-relaxed">Absolutely! I'll adjust the grid system to be more responsive to ultra-wide layouts. 🛠️</p>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<footer class="p-4 px-6">
+<div class="bg-surface-container-lowest rounded-xl p-3 border border-outline-variant/10 focus-within:border-primary/50 transition-all shadow-xl">
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+<input class="bg-transparent border-none p-0 text-sm focus:ring-0 text-on-surface w-full placeholder:text-outline/50" placeholder="Message @Alex Rivera" type="text"/>
+<div class="flex items-center gap-3 text-on-surface-variant">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="mood">mood</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="alternate_email">alternate_email</span></button>
+<button class="bg-primary/10 text-primary p-1.5 rounded-lg hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-2 text-[10px] text-on-surface-variant/50 px-2">
+                        Press <span class="bg-surface-container-highest px-1 rounded">Shift + Enter</span> for a new line.
+                    </div>
+</footer>
+</section>
+<!-- Right Rail: Active Friends Feed (Discord Inspired) -->
+<aside class="w-80 flex flex-col gap-4">
+<div class="flex-1 bg-surface-container-low rounded-xl p-4 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
+<h3 class="font-headline text-xs font-bold uppercase tracking-widest text-on-surface-variant">Active Now</h3>
+<!-- Friend Activity Card 1: Gaming -->
+<div class="bg-surface-container-highest p-4 rounded-xl space-y-4 hover:shadow-lg transition-all border border-outline-variant/5">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Leo" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a young creative man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCftvyB-IYWO5D5gc_fbeiLUkSt3tSW9aFjDcn-JzlWNegz-oiPPEdovJaD11qqwqy_NeO5GXi3POCpOI6JFWAW7bPElSgqO58yNB6qazPRKBDOoDR8U7GrHlowybjVW4v2ry69GoZaqTBhe0TOEeP51EYC-CRMwoajG52GoexwKpHTUFpU5UqiNTitHynwJJ7XTdNMVPZugQG-TJ5JTjaM69eM0OVTriiPDbqgQSrdHos4VYFac9Fv8BLYVsY2PKYRhWgbXKeEPnzW"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-secondary rounded-full border-2 border-surface-container-highest"></span>
+</div>
+<div class="min-w-0">
+<p class="text-xs font-bold truncate">Leo Sterling</p>
+<p class="text-[10px] text-on-surface-variant truncate">Playing <strong>Cyberpunk 2077</strong></p>
+</div>
+</div>
+<div class="relative rounded-lg overflow-hidden h-24 group">
+<img alt="Cyberpunk" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Neon aesthetic cyberpunk cityscape game capture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjkOEpgTSxfeSgpM9-lZPr_jYYoMPS5LKKegJjdr_-kyZlHLDc7YUnnKctMGdvdbWUIeZqYMFg9SWb7jEUYGa_XwgEfWRjAwFa_OSRHM7FmyBLy8idMv8pMHifKl4aq4rWpfGkpf1b3rMpKbKUh9Dtm-Oidw-j6ET6p1eF710aF62p5N5LUAt9ZEykO9qkQzhG8QEmRVl2YsaHQ0T_wmDbqg77klGN_5end-55lU7qH3b5VcBYTRugM4wvWUp_LpdYJItkW5m5yATt"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-2">
+<span class="text-[10px] font-bold text-white/90">Main Story • Act 2</span>
+</div>
+</div>
+</div>
+<!-- Friend Activity Card 2: Music -->
+<div class="bg-surface-container-highest p-4 rounded-xl space-y-4 hover:shadow-lg transition-all border border-outline-variant/5">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Mila" class="w-10 h-10 rounded-full object-cover" data-alt="Candid portrait of a creative professional woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_p5_s8QEn0NRhFs7UtJwZNlGvoMaD0hgdbEqu-1KfXyFr0rRxjdOEkfMdF3BdosDWaFEGMYt6exlLw-fBuePRdtGucuCrpYoPtUdNZOXHAGhqqg_p2xhgMRnUiAcdxvBvjd2o9BSCPE56BoxI1EAwJJmz0hMS8DmPyo6ylFQC4im2WFZBtn92ueQR4ZrYYcfUNGDi_3dsUqYIOgey7_DlLwgnwpkFXlOWyPZe_RiRwL0cpL7zN4MooIo758mfhxqTH8zSzXX-jmDt"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-secondary rounded-full border-2 border-surface-container-highest"></span>
+</div>
+<div class="min-w-0">
+<p class="text-xs font-bold truncate">Mila Jovic</p>
+<p class="text-[10px] text-on-surface-variant truncate">Listening to <strong>Spotify</strong></p>
+</div>
+<div class="ml-auto flex gap-0.5 items-end h-3">
+<div class="w-0.5 h-1.5 bg-secondary animate-pulse"></div>
+<div class="w-0.5 h-3 bg-secondary animate-pulse"></div>
+<div class="w-0.5 h-2 bg-secondary animate-pulse"></div>
+</div>
+</div>
+<div class="flex items-center gap-3 bg-surface-container/50 p-2 rounded-lg">
+<img alt="Album" class="w-12 h-12 rounded-md" data-alt="Stylized music album cover art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK2w2sIRuVAaEQk_PCztR16e1H5PqGHg3HP2wSmV703dfxGqLiRMmCDsjGJNXfGTz4zatdhSHk2RVreWmrQ8e0QR9CNB2SJri6q2pHhq0k0VTX5I6mIjEp-i_OBWOprq2qE1CLTwjocEUGX80WYpjbpMVvW05SZH3qmTLvvVoa8voAckvAeha_8KjC8PCvyJN1ZHQ3LMrGQm3_ihVlqp1DIWFNTnKE8bcyzPOq3qSBhwKdGWbLz39K8n9jfyYJWC_EIfvMCK8V_0TS"/>
+<div class="min-w-0">
+<p class="text-[11px] font-bold text-on-surface truncate">Midnight City</p>
+<p class="text-[10px] text-on-surface-variant truncate">M83 • Hurry Up, We're Dreaming</p>
+</div>
+</div>
+</div>
+<!-- Friend Activity Card 3: Design -->
+<div class="bg-surface-container-highest p-4 rounded-xl space-y-4 hover:shadow-lg transition-all border border-outline-variant/5">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-tertiary/20 flex items-center justify-center text-tertiary font-bold text-xs">SK</div>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-error rounded-full border-2 border-surface-container-highest"></span>
+</div>
+<div class="min-w-0">
+<p class="text-xs font-bold truncate">Sam Khol</p>
+<p class="text-[10px] text-on-surface-variant truncate">Designing in <strong>Adobe Express</strong></p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] bg-tertiary/10 text-tertiary px-2 py-1 rounded">Focus Mode</span>
+<span class="text-[10px] text-on-surface-variant italic">2 hours left</span>
+</div>
+</div>
+</div>
+<!-- Suggestions Panel (Glassmorphism) -->
+<div class="glass-panel p-4 rounded-xl border border-white/5 space-y-4 shadow-2xl">
+<h3 class="font-headline text-[10px] font-extrabold uppercase tracking-widest text-on-primary-container/80">Workshop Insights</h3>
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container/30 flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<p class="text-[11px] text-on-surface leading-tight">
+                            You have <strong class="text-primary-fixed">3 unread threads</strong> in the Design Critique channel.
+                        </p>
+</div>
+<button class="w-full py-2 bg-gradient-to-r from-primary to-primary-container rounded-lg text-on-primary text-[10px] font-bold uppercase tracking-widest active:scale-95 transition-all">
+                        View Summary
+                    </button>
+</div>
+</aside>
+</main>
+</div>
+</body></html>
