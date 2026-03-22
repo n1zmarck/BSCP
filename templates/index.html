@@ -1,225 +1,268 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Federated Messenger Pro</title>
-    <!-- Markdown Library -->
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Atelier Messages (Federated)</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="/static/tailwind-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
-
-    <style>
-        :root {
-            --bg-dark: #121212; --bg-sidebar: #1e1e1e; --bg-header: #242424;
-            --text-dim: #b0b0b0; --border: #333333; --msg-me: #0a84ff; --msg-them: #333333;
-        }
-
-        body { 
-            margin: 0; font-family: -apple-system, sans-serif;
-            background: var(--bg-dark); color: var(--text-main); 
-            display: flex; height: 100vh; overflow: hidden;
-        }
-
-        /* Sidebar */
-        #sidebar { width: 300px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
-        .user-profile { padding: 20px; background: var(--bg-header); border-bottom: 1px solid var(--border); font-weight: bold; color: var(--accent); font-size: 0.8em; }
-        .new-chat-btn { margin: 15px; padding: 10px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        #chat-list { flex: 1; overflow-y: auto; }
-        .sidebar-item { padding: 15px 20px; border-bottom: 1px solid #252525; cursor: pointer; transition: 0.2s; }
-        .sidebar-item.active { background: var(--bg-header); border-left: 4px solid var(--accent); }
-
-        /* Main Chat */
-        #chat-area { flex: 1; display: flex; flex-direction: column; }
-        #chat-header { padding: 15px 25px; background: var(--bg-header); border-bottom: 1px solid var(--border); font-weight: bold; }
-        #messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
-
-        /* Bubbles & Markdown */
-        .msg { max-width: 75%; padding: 12px 16px; border-radius: 15px; font-size: 0.95em; line-height: 1.5; word-wrap: break-word; }
-        .msg.me { align-self: flex-end; background: var(--msg-me); border-bottom-right-radius: 2px; }
-        .msg.them { align-self: flex-start; background: var(--msg-them); border-bottom-left-radius: 2px; }
-        .msg small { display: block; font-size: 0.7em; margin-bottom: 5px; opacity: 0.7; }
-        
-        /* Markdown Content Styling */
-        .msg p { margin: 5px 0; }
-        .msg img { max-width: 100%; border-radius: 8px; margin-top: 8px; display: block; background: #000; }
-        .msg code { background: rgba(0,0,0,0.3); padding: 2px 4px; border-radius: 4px; font-family: monospace; }
-
-        /* Input */
-        #input-area { padding: 20px; background: var(--bg-sidebar); border-top: 1px solid var(--border); }
-        .input-row { display: flex; gap: 10px; align-items: center; }
-        input { background: #2a2a2a; border: 1px solid var(--border); color: white; padding: 12px; border-radius: 6px; outline: none; }
-        #msg-input { flex: 1; }
-        .icon-btn { background: #444; border: none; color: white; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 1.2em; }
-        .send-btn { background: var(--accent); border: none; color: white; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="/static/style.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container">
 
-    <div id="sidebar">
-        <div class="user-profile">INGELOGD ALS: {{ user }}</div>
-        <button class="new-chat-btn" onclick="uiStartNewChat()">+ Nieuw Gesprek</button>
-        <div id="chat-list"></div>
-    </div>
-
-    <div id="chat-area">
-        <div id="chat-header">Selecteer een gesprek</div>
-        <div id="messages"></div>
-
-        <div id="input-area">
-            <input id="new-chat-user" placeholder="Ontvanger ID (user@host:5001)" style="display:none; width: 100%; margin-bottom: 10px; box-sizing: border-box;">
-            <div class="input-row">
-                <input type="file" id="file-input" style="display:none;" onchange="handleFileUpload()">
-                <button class="icon-btn" onclick="document.getElementById('file-input').click()" title="Afbeelding uploaden">📷</button>
-                <input id="msg-input" placeholder="Typ een bericht (Markdown ondersteund)..." onkeypress="if(event.key==='Enter') sendMessage()">
-                <button class="send-btn" onclick="sendMessage()">Verzend</button>
+<div class="flex h-screen w-full overflow-hidden">
+    <nav class="flex flex-col items-center justify-between h-full w-20 z-40 bg-[#0c0f10] border-r border-[#45484a]/15 py-6">
+        <div class="flex flex-col items-center w-full">
+            <div class="text-[#7eafff] font-black mb-8 text-xl tracking-tighter">A.</div>
+            <div class="flex flex-col items-center space-y-4 w-full">
+                <button class="bg-[#3d4758] text-[#c7d1e6] rounded-full p-3 mb-2 flex flex-col items-center group transition-all duration-200 Active: scale-90">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+                    <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest mt-1">Chats</span>
+                </button>
+                
+                </div>
+        </div>
+        <div class="flex flex-col items-center w-full space-y-6">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20 flex items-center justify-center text-xs font-bold">
+                {{ user[:2].upper() }}
             </div>
         </div>
+    </nav>
+
+    <aside class="hidden md:flex flex-col w-80 bg-surface-container-low border-r border-[#45484a]/10">
+        <header class="px-6 py-8">
+            <div class="flex items-center justify-between mb-6">
+                <h1 class="text-2xl font-bold font-headline tracking-tight text-on-surface">Messages</h1>
+            </div>
+            <div class="mb-4">
+                <button onclick="uiStartNewChat()" class="w-full bg-primary text-on-primary rounded-lg py-2 text-sm font-bold shadow hover:opacity-90 transition-opacity">
+                    + New Chat
+                </button>
+                <input id="new-chat-user" class="w-full bg-surface-container-high border-none rounded-lg py-3 px-4 mt-3 text-sm focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-on-surface-variant/50" placeholder="Recipient ID (user@host:5001)" style="display:none;" type="text"/>
+            </div>
+        </header>
+
+        <div id="chat-list" class="flex-1 overflow-y-auto px-3 space-y-1 pb-4"></div>
+    </aside>
+
+    <main class="flex-1 flex flex-col bg-surface relative">
+        <header class="flex items-center justify-between px-6 py-3 w-full top-0 sticky bg-[#1c2023] z-10 transition-colors duration-200">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+                        <span class="material-symbols-outlined">person</span>
+                    </div>
+                    <div>
+                        <h2 id="chat-header" class="font-['Plus_Jakarta_Sans'] text-sm font-bold tracking-tight text-[#f8f9fc]">Select a chat</h2>
+                    </div>
+                </div>
+            </div>
+            </header>
+
+        <div id="messages" class="flex-1 overflow-y-auto p-6 md:p-10 scroll-smooth flex flex-col gap-6">
+            <div class="text-center text-on-surface-variant text-sm mt-10">Select or start a new chat to begin.</div>
+        </div>
+
+        <footer class="p-6 md:p-8 bg-gradient-to-t from-background via-background to-transparent">
+            <div class="bg-surface-container-high/80 backdrop-blur-xl p-3 rounded-full flex items-center gap-3 border border-outline-variant/10 shadow-2xl">
+                <input type="file" id="file-input" style="display:none;" onchange="handleFileUpload()">
+                <button onclick="document.getElementById('file-input').click()" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest transition-colors" title="Upload Image">
+                    <span class="material-symbols-outlined">add_circle</span>
+                </button>
+                <input id="msg-input" onkeypress="if(event.key==='Enter') sendMessage()" class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-2 px-1 text-on-surface placeholder:text-on-surface-variant/40" placeholder="Type a message (Markdown supported)..." type="text"/>
+                <div class="flex items-center gap-1 pr-1">
+                    <button onclick="sendMessage()" class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-on-primary hover:opacity-90 transition-opacity">
+                        <span class="material-symbols-outlined text-xl">send</span>
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </main>
+
     </div>
 
-    <script>
-        let currentChat = null;
-        let lastMsgCount = 0;
+<script>
+    let currentChat = null;
+    let lastMsgCount = 0;
+    const currentUser = '{{ user }}';
 
-        // Configureer Markdown
-        marked.setOptions({ gfm: true, breaks: true, headerIds: false, mangle: false });
+    marked.setOptions({ gfm: true, breaks: true, headerIds: false, mangle: false });
 
-        function uiStartNewChat() {
-            currentChat = null;
-            lastMsgCount = 0;
-            document.getElementById('chat-header').innerText = "Nieuw Gesprek";
-            document.getElementById('messages').innerHTML = '<div style="text-align:center; color:var(--text-dim); margin-top:50px;">Voer een ID in en gebruik Markdown of afbeeldingen.</div>';
-            const ncu = document.getElementById('new-chat-user');
-            ncu.style.display = 'block'; ncu.value = ''; ncu.focus();
-            document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
-        }
-
-        async function loadChats() {
-            const res = await fetch('/api/chats');
-            const chats = await res.json();
-            const list = document.getElementById('chat-list');
-            list.innerHTML = '';
-            chats.forEach(chat => {
-                const div = document.createElement('div');
-                div.className = `sidebar-item ${currentChat === chat ? 'active' : ''}`;
-                div.innerHTML = `<strong>${chat}</strong>`;
-                div.onclick = () => selectChat(chat);
-                list.appendChild(div);
-            });
-        }
-
-        function selectChat(chat) {
-            currentChat = chat;
-            lastMsgCount = 0; 
-            document.getElementById('chat-header').innerText = chat;
-            document.getElementById('new-chat-user').style.display = 'none';
-            loadMessages();
-            loadChats();
-        }
-
-        async function loadMessages() {
-            if (!currentChat) return;
-
-            if (typeof marked === 'undefined') {
-        console.error("Marked library nog niet geladen...");
-        return; 
+    function uiStartNewChat() {
+        currentChat = null;
+        lastMsgCount = 0;
+        document.getElementById('chat-header').innerText = "New Chat";
+        document.getElementById('messages').innerHTML = '<div class="text-center text-on-surface-variant text-sm mt-10">Enter an ID and use Markdown or images.</div>';
+        const ncu = document.getElementById('new-chat-user');
+        ncu.style.display = 'block'; ncu.value = ''; ncu.focus();
+        loadChats(); 
     }
 
-            const res = await fetch(`/api/messages/${encodeURIComponent(currentChat)}`);
-            const msgs = await res.json();
-            
-            if (msgs.length !== lastMsgCount) {
-                const container = document.getElementById('messages');
-                container.innerHTML = '';
-                
-                msgs.forEach(m => {
-                    const isMe = m.sender === '{{ user }}';
-                    const div = document.createElement('div');
-                    div.className = `msg ${isMe ? 'me' : 'them'}`;
-                    
-                    // Render Markdown
-                    let htmlContent = marked.parse(m.text);
-
-                    // Proxy afbeeldingen om IP-leaks te voorkomen
-                    const temp = document.createElement('div');
-                    temp.innerHTML = htmlContent;
-                    temp.querySelectorAll('img').forEach(img => {
-                        const original = img.src;
-                        // Alleen proxien als het een externe URL is
-                        if(!original.includes(window.location.host + '/uploads/')) {
-                            img.src = `/media/proxy?url=${encodeURIComponent(original)}`;
-                        }
-                        img.loading = "lazy";
-                    });
-
-                    div.innerHTML = `<small>${m.sender.split('@')[0]}</small>${temp.innerHTML}`;
-                    container.appendChild(div);
-                });
-                container.scrollTop = container.scrollHeight;
-                lastMsgCount = msgs.length;
-            }
-        }
-
-        async function handleFileUpload() {
-            const fileInput = document.getElementById('file-input');
-            if (fileInput.files.length === 0) return;
-
-            const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
-
-            const res = await fetch('/api/upload', { method: 'POST', body: formData });
-            if (res.ok) {
-                const data = await res.json();
-                document.getElementById('msg-input').value += ` ${data.markdown} `;
-            } else {
-                alert("Upload mislukt.");
-            }
-            fileInput.value = ''; // Reset input
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('msg-input');
-            const text = input.value.trim();
-            const receiver = currentChat || document.getElementById('new-chat-user').value.trim();
-
-            if (!text || !receiver) return;
-
-            const res = await fetch('/api/sendmessage', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({receiver, messageText: text})
-            });
-
-            if (res.ok) {
-                input.value = '';
-                if (!currentChat) selectChat(receiver);
-                else loadMessages();
-            } else {
-                alert("Verzenden mislukt. Is de andere node bereikbaar?");
-            }
-        }
-
-        function initApp() {
-    // Check elke 100ms of marked al gedefinieerd is
-    if (typeof marked !== 'undefined') {
-        console.log("Marked geladen, app start...");
+    async function loadChats() {
+        const res = await fetch('/api/chats');
+        const chats = await res.json();
+        const list = document.getElementById('chat-list');
+        list.innerHTML = '';
         
-        // Configureer marked één keer
-        marked.setOptions({ gfm: true, breaks: true });
-
-        // Start de polling loops
-        setInterval(() => { 
-            loadChats(); 
-            if (currentChat) loadMessages(); 
-        }, 2000);
-
-        loadChats();
-    } else {
-        console.log("Wachten op marked library...");
-        setTimeout(initApp, 100); // Probeer het over 100ms opnieuw
+        chats.forEach(chat => {
+            const isActive = (currentChat === chat);
+            const activeClasses = isActive ? 'bg-surface-container-highest border-l-4 border-primary' : 'hover:bg-surface-container-high';
+            
+            const div = document.createElement('div');
+            div.className = `${activeClasses} rounded-lg p-4 flex items-center gap-4 cursor-pointer transition-all duration-200`;
+            div.onclick = () => selectChat(chat);
+            
+            div.innerHTML = `
+                <div class="relative flex-shrink-0">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface-variant font-bold">
+                        ${chat.substring(0, 2).toUpperCase()}
+                    </div>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-baseline mb-0.5">
+                        <h3 class="font-bold text-sm truncate text-on-surface">${chat}</h3>
+                    </div>
+                </div>
+            `;
+            list.appendChild(div);
+        });
     }
-}
 
-// Start het initialisatieproces
-initApp();
-    </script>
+    function selectChat(chat) {
+        currentChat = chat;
+        lastMsgCount = 0; 
+        document.getElementById('chat-header').innerText = chat;
+        document.getElementById('new-chat-user').style.display = 'none';
+        loadMessages();
+        loadChats();
+    }
+
+    async function loadMessages() {
+        if (!currentChat) return;
+        if (typeof marked === 'undefined') return;
+
+        const res = await fetch(`/api/messages/${encodeURIComponent(currentChat)}`);
+        const msgs = await res.json();
+        
+        if (msgs.length !== lastMsgCount) {
+            const container = document.getElementById('messages');
+            container.innerHTML = '';
+            
+            msgs.forEach(m => {
+                const isMe = m.sender === currentUser;
+                let htmlContent = marked.parse(m.text);
+
+                const temp = document.createElement('div');
+                temp.innerHTML = htmlContent;
+                temp.querySelectorAll('img').forEach(img => {
+                    const original = img.src;
+                    if(!original.includes(window.location.host + '/uploads/')) {
+                        img.src = `/media/proxy?url=${encodeURIComponent(original)}`;
+                    }
+                    img.loading = "lazy";
+                });
+                
+                htmlContent = temp.innerHTML;
+
+                const div = document.createElement('div');
+                
+                if (isMe) {
+                    div.className = "flex flex-row-reverse items-end gap-4 max-w-2xl ml-auto group";
+                    div.innerHTML = `
+                        <div class="flex-shrink-0 mb-1">
+                            <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold text-[10px]">ME</div>
+                        </div>
+                        <div class="space-y-1 items-end flex flex-col">
+                            <div class="bg-primary text-on-primary p-4 rounded-2xl rounded-br-none shadow-lg transition-all msg-content text-sm leading-relaxed">
+                                ${htmlContent}
+                            </div>
+                            <div class="flex items-center gap-1.5 pr-1">
+                                <span class="text-[10px] font-medium text-on-surface-variant">${m.time}</span>
+                                <span class="material-symbols-outlined text-xs text-primary" style="font-variation-settings: 'FILL' 1;">done_all</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    div.className = "flex items-end gap-4 max-w-2xl group";
+                    div.innerHTML = `
+                        <div class="flex-shrink-0 mb-1">
+                            <div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface font-bold text-[10px]">
+                                ${m.sender.substring(0,2).toUpperCase()}
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="bg-surface-container-high text-on-surface p-4 rounded-2xl rounded-bl-none shadow-sm transition-all hover:bg-surface-container-highest msg-content text-sm leading-relaxed">
+                                ${htmlContent}
+                            </div>
+                            <span class="text-[10px] font-medium text-on-surface-variant pl-1">${m.time} • ${m.sender.split('@')[0]}</span>
+                        </div>
+                    `;
+                }
+                
+                container.appendChild(div);
+            });
+            container.scrollTop = container.scrollHeight;
+            lastMsgCount = msgs.length;
+        }
+    }
+
+    async function handleFileUpload() {
+        const fileInput = document.getElementById('file-input');
+        if (fileInput.files.length === 0) return;
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        if (res.ok) {
+            const data = await res.json();
+            document.getElementById('msg-input').value += ` ${data.markdown} `;
+        } else {
+            alert("Upload failed.");
+        }
+        fileInput.value = '';
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('msg-input');
+        const text = input.value.trim();
+        const receiver = currentChat || document.getElementById('new-chat-user').value.trim();
+
+        if (!text || !receiver) return;
+
+        const res = await fetch('/api/sendmessage', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({receiver, messageText: text})
+        });
+
+        if (res.ok) {
+            input.value = '';
+            if (!currentChat) selectChat(receiver);
+            else loadMessages();
+        } else {
+            alert("Delivery failed. Is the recipient online?");
+        }
+    }
+
+    function initApp() {
+        if (typeof marked !== 'undefined') {
+            marked.setOptions({ gfm: true, breaks: true });
+            setInterval(() => { 
+                loadChats(); 
+                if (currentChat) loadMessages(); 
+            }, 2000);
+            loadChats();
+        } else {
+            setTimeout(initApp, 100);
+        }
+    }
+
+    initApp();
+</script>
 </body>
 </html>
